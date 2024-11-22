@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private GameManager gameManager;
+
+    private void Start()
     {
-        
+        gameManager = FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnCardClicked()
     {
-        
+        if (gameManager != null)
+        {
+            gameManager.TryMoveCard(transform);
+        }
     }
 }
