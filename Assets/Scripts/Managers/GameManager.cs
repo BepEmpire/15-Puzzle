@@ -1,14 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Transform gameGrid;
+    [SerializeField] private Timer timer;
+    [SerializeField] private GameOverPopup gameOverPopup;
+    [SerializeField] private bool isTest;
+    
     private Transform _emptyCell;
-
-    private List<Transform> cards = new List<Transform>();
+    private List<Transform> _cards = new List<Transform>();
+    
+    private bool _timerStarted = false;
 
     private void Start()
     {
@@ -23,9 +26,21 @@ public class GameManager : MonoBehaviour
         
         if (Vector2.Distance(cardPos, emptyPos) == 200)
         {
+            if (!_timerStarted)
+            {
+                timer.StartTimer();
+                _timerStarted = true;
+            }
+            
             card.GetComponent<RectTransform>().anchoredPosition = emptyPos;
             _emptyCell.GetComponent<RectTransform>().anchoredPosition = cardPos;
-
+            
+            int cardIndex = card.GetSiblingIndex();
+            int emptyIndex = _emptyCell.GetSiblingIndex();
+            
+            card.SetSiblingIndex(emptyIndex);
+            _emptyCell.SetSiblingIndex(cardIndex);
+            
             CheckWinCondition();
         }
     }
@@ -35,7 +50,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < gameGrid.childCount; i++)
         {
             Transform child = gameGrid.GetChild(i);
-            cards.Add(child);
+            _cards.Add(child);
 
             if (child.name == "EmptyCell")
             {
@@ -46,19 +61,21 @@ public class GameManager : MonoBehaviour
 
     private void ShuffleGrid()
     {
-        for (int i = 0; i < cards.Count; i++)
+        if (isTest) return;
+        
+        for (int i = 0; i < _cards.Count; i++)
         {
-            int randomIndex = Random.Range(0, cards.Count);
+            int randomIndex = Random.Range(0, _cards.Count);
             
-            Transform temp = cards[i];
-            cards[i].SetSiblingIndex(cards[randomIndex].GetSiblingIndex());
-            cards[randomIndex].SetSiblingIndex(temp.GetSiblingIndex());
+            Transform temp = _cards[i];
+            _cards[i].SetSiblingIndex(_cards[randomIndex].GetSiblingIndex());
+            _cards[randomIndex].SetSiblingIndex(temp.GetSiblingIndex());
         }
     }
 
     private void CheckWinCondition()
     {
-        for (int i = 0; i < cards.Count - 1; i++)
+        for (int i = 0; i < _cards.Count - 1; i++)
         {
             Transform card = gameGrid.GetChild(i);
 
@@ -71,5 +88,8 @@ public class GameManager : MonoBehaviour
         }
         
         Debug.Log("You win!");
+        timer.StopTimer();
+        
+        gameOverPopup.ShowGameOverPanel();
     }
 }
