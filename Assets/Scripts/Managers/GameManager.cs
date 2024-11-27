@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < _cards.Count - 1; i++)
         {
             Transform card = gameGrid.GetChild(i);
-
             string expectedName = "Card " + (i + 1).ToString();
 
             if (card.name != expectedName)
@@ -88,8 +87,11 @@ public class GameManager : MonoBehaviour
         }
         
         Debug.Log("You win!");
-        timer.StopTimer();
+        
+        WalletManager.Instance.RewardCoinsForLevelCompletion();
         
         gameOverPopup.ShowGameOverPanel();
+        
+        timer.StopTimer();
     }
 }
