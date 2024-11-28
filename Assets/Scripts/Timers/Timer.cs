@@ -34,6 +34,11 @@ public class Timer : MonoBehaviour
         _isRunning = false;
         UpdateTimerUI();
     }
+
+    public float GetElapsedTime()
+    {
+        return _elapsedTime;
+    }
     
     private void UpdateTimerUI()
     {

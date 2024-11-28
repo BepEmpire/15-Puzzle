@@ -13,10 +13,14 @@ public class GameManager : MonoBehaviour
     
     private bool _timerStarted = false;
 
+    private string _selectedDifficulty;
+    private float _timeLimit;
+
     private void Start()
     {
         InitializeGrid();
         ShuffleGrid();
+        LoadDifficultySettings();
     }
     
     public void TryMoveCard(Transform card)
@@ -73,6 +77,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void LoadDifficultySettings()
+    {
+        _selectedDifficulty = PlayerPrefs.GetString("SelectedDifficulty", "Easy");
+
+        switch (_selectedDifficulty)
+        {
+            case "Easy":
+                _timeLimit = 30f;
+                break;
+            case "Medium":
+                _timeLimit = 20f;
+                break;
+            case "Hard":
+                _timeLimit = 10f;
+                break;
+            default:
+                _timeLimit = 30f;
+                break;
+        }
+        
+        Debug.Log($"Difficulty set to {_selectedDifficulty}, Time Limit: {_timeLimit} seconds");
+    }
+
     private void CheckWinCondition()
     {
         for (int i = 0; i < _cards.Count - 1; i++)
@@ -86,12 +113,19 @@ public class GameManager : MonoBehaviour
             }
         }
         
-        Debug.Log("You win!");
-        
-        WalletManager.Instance.RewardCoinsForLevelCompletion();
-        
-        gameOverPopup.ShowGameOverPanel();
-        
         timer.StopTimer();
+
+        if (timer.GetElapsedTime() <= _timeLimit)
+        {
+            Debug.Log("You win!");
+            
+            WalletManager.Instance.RewardCoinsForLevelCompletion();
+            gameOverPopup.ShowGameOverPanel();
+        }
+        else
+        {
+            Debug.Log("Time's up! You failed to complete the level.");
+            gameOverPopup.ShowFailurePanel();
+        }
     }
 }
