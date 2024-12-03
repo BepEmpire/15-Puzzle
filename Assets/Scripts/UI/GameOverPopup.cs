@@ -24,4 +24,10 @@ public class GameOverPopup : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    
+    public void ExitGame()
+    {
+        SceneManager.LoadScene(Scenes.MenuScene.ToString());
+    }
+    
 }

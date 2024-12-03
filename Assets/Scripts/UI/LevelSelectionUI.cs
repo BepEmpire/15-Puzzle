@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelSelectionUI : MonoBehaviour
 {
-    public void SelectDifficulty(string difficulty)
+    [SerializeField] private Difficulty difficulty;
+    
+    public void SelectDifficulty()
     {
-        PlayerPrefs.SetString("SelectedDifficulty", difficulty);
+        PlayerPrefs.SetString(Keys.DIFFICULTY, difficulty.ToString());
         PlayerPrefs.Save();
         
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(Scenes.GameScene.ToString());
     }
 }

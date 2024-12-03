@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -50,8 +51,8 @@ public class Timer : MonoBehaviour
     
     private string GetFormattedTime(float time)
     {
-        int minutes = Mathf.FloorToInt(time / 60);
-        int seconds = Mathf.FloorToInt(time % 60);
-        return string.Format("{0:00}:{1:00}", minutes, seconds);
+        TimeSpan timeSpan = TimeSpan.FromSeconds(time);
+
+        return timeSpan.ToString(@"mm\:ss");
     }
 }

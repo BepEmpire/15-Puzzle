@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -51,12 +49,5 @@ public class WalletManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(WALLET_KEY, TotalCoins);
         PlayerPrefs.Save();
-    }
-
-    public void RewardCoinsForLevelCompletion()
-    {
-        const int levelReward = 500;
-        AddCoins(levelReward);
-        Debug.Log($"Player rewarded {levelReward} coins for completing the level. Total coins: {TotalCoins}");
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +15,8 @@ public class ShopController : MonoBehaviour
     [SerializeField] private Button previousPageButton;
     [SerializeField] private Button nextPageButton;
 
+    private const string DEFAULT_BACKGROUND = "BackgroundPurchased_0";
+    
     private int _currentBackgroundId;
 
     private void Start()
@@ -31,6 +31,7 @@ public class ShopController : MonoBehaviour
         if (!isPurchased && WalletManager.Instance.SpendCoins(backgroundPrices[backgroundId]))
         {
             PlayerPrefs.SetInt("BackgroundPurchased_" + backgroundId, 1);
+            AudioController.Instance.PlaySound("Buy");
         }
         
         if (isPurchased || backgroundId == 0)
@@ -44,18 +45,20 @@ public class ShopController : MonoBehaviour
     private void SelectBackground(int backgroundId)
     {
         _currentBackgroundId = backgroundId;
-        PlayerPrefs.SetInt("SelectedBackground", backgroundId);
+        PlayerPrefs.SetInt(Keys.SELECTED_BACKGROUND, backgroundId);
+        AudioController.Instance.PlaySound("Click");
+        
         PlayerPrefs.Save();
     }
     
     private void InitializeShop()
     {
-        PlayerPrefs.SetInt("BackgroundPurchased_0", 1);
+        PlayerPrefs.SetInt(DEFAULT_BACKGROUND, 1); // Buy Default Background
         
-        _currentBackgroundId = PlayerPrefs.GetInt("SelectedBackground", 0);
+        _currentBackgroundId = PlayerPrefs.GetInt(Keys.SELECTED_BACKGROUND, 0);
         
-        nextPageButton.onClick.AddListener(() => SwitchPage(2));
-        previousPageButton.onClick.AddListener(() => SwitchPage(1));
+        nextPageButton.onClick.AddListener(() => ShowPage(2));
+        previousPageButton.onClick.AddListener(() => ShowPage(1));
         
         UpdateShopUI();
         ShowPage(1);
@@ -83,11 +86,6 @@ public class ShopController : MonoBehaviour
                 buttonTexts[i].text = $"{backgroundPrices[i]}";
             }
         }
-    }
-    
-    private void SwitchPage(int pageNumber)
-    {
-        ShowPage(pageNumber);
     }
 
     private void ShowPage(int pageNumber)

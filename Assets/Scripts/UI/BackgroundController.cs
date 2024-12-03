@@ -1,12 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BackgroundManager : MonoBehaviour
+public class BackgroundController : MonoBehaviour
 {
-    [SerializeField] private Image gameplayBackground;
     [SerializeField] private Sprite[] backgroundSprites;
+
+    private Image _image;
+
+    private void Awake()
+    {
+        _image = GetComponent<Image>();
+    }
 
     private void Start()
     {
@@ -15,11 +19,11 @@ public class BackgroundManager : MonoBehaviour
 
     private void LoadSelectedBackground()
     {
-        int selectedBackgroundId = PlayerPrefs.GetInt("SelectedBackground", 0); // Default to the first background
+        int selectedBackgroundId = PlayerPrefs.GetInt(Keys.SELECTED_BACKGROUND, 0); // Default to the first background
         
         if (selectedBackgroundId >= 0 && selectedBackgroundId < backgroundSprites.Length)
         {
-            gameplayBackground.sprite = backgroundSprites[selectedBackgroundId];
+            _image.sprite = backgroundSprites[selectedBackgroundId];
         }
         else
         {
