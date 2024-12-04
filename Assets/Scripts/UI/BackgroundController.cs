@@ -19,7 +19,7 @@ public class BackgroundController : MonoBehaviour
 
     private void LoadSelectedBackground()
     {
-        int selectedBackgroundId = PlayerPrefs.GetInt(Keys.SELECTED_BACKGROUND, 0); // Default to the first background
+        int selectedBackgroundId = PlayerPrefs.GetInt(Keys.SELECTED_BACKGROUND, 0);
         
         if (selectedBackgroundId >= 0 && selectedBackgroundId < backgroundSprites.Length)
         {

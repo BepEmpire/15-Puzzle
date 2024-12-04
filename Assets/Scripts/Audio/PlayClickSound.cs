@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +13,6 @@ public class PlayClickSound : MonoBehaviour
 
     private void PlayClick()
     {
-        AudioController.Instance.PlaySound("Click");
+        AudioController.Instance.PlaySound(Keys.CLICK);
     }
 }

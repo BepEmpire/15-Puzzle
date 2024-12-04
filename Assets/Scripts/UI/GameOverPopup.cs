@@ -29,5 +29,4 @@ public class GameOverPopup : MonoBehaviour
     {
         SceneManager.LoadScene(Scenes.MenuScene.ToString());
     }
-    
 }

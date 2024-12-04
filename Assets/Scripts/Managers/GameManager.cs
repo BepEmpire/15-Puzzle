@@ -8,25 +8,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameOverPopup gameOverPopup;
     [SerializeField] private bool isTest;
     
+    [Header("Level Data")]
+    [SerializeField] private LevelData easyLevelData;
+    [SerializeField] private LevelData mediumLevelData;
+    [SerializeField] private LevelData hardLevelData;
+    
     private Transform _emptyCell;
     private List<Transform> _cards = new List<Transform>();
 
     private const string EMPTY_CELL_NAME = "EmptyCell";
+    private const string PUZZLE_SET = "PuzzleSet";
+    private const string RESULT_WIN = "ResultWin";
+    private const string RESULT_LOSE = "ResultLose";
     
-    private const int EASY_REWARD = 100;
-    private const int MEDIUM_REWARD = 200;
-    private const int HARD_REWARD = 500;
-    
+    private LevelData _currentLevelData;
     private bool _timerStarted = false;
-
-    private int _currentReward;
-    private float _timeLimit;
 
     private void Start()
     {
         InitializeGrid();
         ShuffleGrid();
-        LoadDifficultySettings();
+        LoadLevelData();
     }
     
     public void TryMoveCard(Transform card)
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
             card.SetSiblingIndex(emptyIndex);
             _emptyCell.SetSiblingIndex(cardIndex);
             
-            AudioController.Instance.PlaySound("PuzzleSet");
+            AudioController.Instance.PlaySound(PUZZLE_SET);
             
             CheckWinCondition();
         }
@@ -85,31 +87,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void LoadDifficultySettings()
+    private void LoadLevelData()
     {
         string selectedDifficulty = PlayerPrefs.GetString(Keys.DIFFICULTY, Difficulty.Easy.ToString());
 
         switch (selectedDifficulty)
         {
             case nameof(Difficulty.Easy):
-                _currentReward = EASY_REWARD;
-                _timeLimit = 30f;
+                _currentLevelData = easyLevelData;
                 break;
             case nameof(Difficulty.Medium):
-                _currentReward = MEDIUM_REWARD;
-                _timeLimit = 20f;
+                _currentLevelData = mediumLevelData;
                 break;
             case nameof(Difficulty.Hard):
-                _currentReward = HARD_REWARD;
-                _timeLimit = 10f;
+                _currentLevelData = hardLevelData;
                 break;
             default:
-                _currentReward = EASY_REWARD;
-                _timeLimit = 30f;
+                _currentLevelData = easyLevelData;
                 break;
         }
         
-        Debug.Log($"Difficulty set to {selectedDifficulty}, Time Limit: {_timeLimit} seconds");
+        Debug.Log($"Difficulty set to {_currentLevelData.levelName}, Time Limit: {_currentLevelData.timeLimit} seconds");
     }
 
     private void CheckWinCondition()
@@ -131,20 +129,20 @@ public class GameManager : MonoBehaviour
 
     private void CheckResult()
     {
-        if (timer.GetElapsedTime() <= _timeLimit)
+        if (timer.GetElapsedTime() <= _currentLevelData.timeLimit)
         {
             Debug.Log("You win!");
             
-            WalletManager.Instance.AddCoins(_currentReward);
-            Debug.Log($"Player rewarded {_currentReward} coins for completing the level.");
+            WalletManager.Instance.AddCoins(_currentLevelData.reward);
+            Debug.Log($"Player rewarded {_currentLevelData.reward} coins for completing the level.");
             gameOverPopup.ShowGameOverPanel();
-            AudioController.Instance.PlaySound("ResultWin");
+            AudioController.Instance.PlaySound(RESULT_WIN);
         }
         else
         {
             Debug.Log("Time's up! You failed to complete the level.");
             gameOverPopup.ShowFailurePanel();
-            AudioController.Instance.PlaySound("ResultLose");
+            AudioController.Instance.PlaySound(RESULT_LOSE);
         }
     }
 }

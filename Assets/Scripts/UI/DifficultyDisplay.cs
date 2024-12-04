@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -14,8 +12,7 @@ public class DifficultyDisplay : MonoBehaviour
 
     private void Start()
     {
-        string selectedDifficulty = PlayerPrefs.GetString("SelectedDifficulty", "Easy");
+        string selectedDifficulty = PlayerPrefs.GetString(Keys.DIFFICULTY, Difficulty.Easy.ToString());
         _difficultyText.text = selectedDifficulty;
     }
-
 }

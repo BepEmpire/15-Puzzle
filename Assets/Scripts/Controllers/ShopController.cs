@@ -16,6 +16,10 @@ public class ShopController : MonoBehaviour
     [SerializeField] private Button nextPageButton;
 
     private const string DEFAULT_BACKGROUND = "BackgroundPurchased_0";
+    private const string PURCHASED_BACKGROUND = "BackgroundPurchased_";
+    private const string SELECTED = "Selected";
+    private const string SELECT = "Select";
+    private const string BUY = "Buy";
     
     private int _currentBackgroundId;
 
@@ -26,12 +30,12 @@ public class ShopController : MonoBehaviour
 
     public void BuyOrSelectBackground(int backgroundId)
     {
-        bool isPurchased = PlayerPrefs.GetInt("BackgroundPurchased_" + backgroundId, 0) == 1;
+        bool isPurchased = PlayerPrefs.GetInt(PURCHASED_BACKGROUND + backgroundId, 0) == 1;
         
         if (!isPurchased && WalletManager.Instance.SpendCoins(backgroundPrices[backgroundId]))
         {
-            PlayerPrefs.SetInt("BackgroundPurchased_" + backgroundId, 1);
-            AudioController.Instance.PlaySound("Buy");
+            PlayerPrefs.SetInt(PURCHASED_BACKGROUND + backgroundId, 1);
+            AudioController.Instance.PlaySound(BUY);
         }
         
         if (isPurchased || backgroundId == 0)
@@ -46,14 +50,14 @@ public class ShopController : MonoBehaviour
     {
         _currentBackgroundId = backgroundId;
         PlayerPrefs.SetInt(Keys.SELECTED_BACKGROUND, backgroundId);
-        AudioController.Instance.PlaySound("Click");
+        AudioController.Instance.PlaySound(Keys.CLICK);
         
         PlayerPrefs.Save();
     }
     
     private void InitializeShop()
     {
-        PlayerPrefs.SetInt(DEFAULT_BACKGROUND, 1); // Buy Default Background
+        PlayerPrefs.SetInt(DEFAULT_BACKGROUND, 1);
         
         _currentBackgroundId = PlayerPrefs.GetInt(Keys.SELECTED_BACKGROUND, 0);
         
@@ -68,18 +72,18 @@ public class ShopController : MonoBehaviour
     {
         for (int i = 0; i < backgroundButtons.Length; i++)
         {
-            bool isPurchased = i == 0 || PlayerPrefs.GetInt("BackgroundPurchased_" + i, 0) == 1;
+            bool isPurchased = i == 0 || PlayerPrefs.GetInt(PURCHASED_BACKGROUND + i, 0) == 1;
             bool isSelected = i == _currentBackgroundId;
             
             backgroundButtons[i].interactable = isPurchased || WalletManager.Instance.TotalCoins >= backgroundPrices[i];
             
             if (isSelected)
             {
-                buttonTexts[i].text = "Selected";
+                buttonTexts[i].text = SELECTED;
             }
             else if (isPurchased)
             {
-                buttonTexts[i].text = "Select";
+                buttonTexts[i].text = SELECT;
             }
             else
             {

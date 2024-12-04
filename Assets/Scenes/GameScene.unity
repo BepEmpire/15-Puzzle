@@ -665,7 +665,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9441f74239315d54192a7a5eea74a437, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32312fef820e67647aed104e60243c1d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -696,9 +696,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundSprites:
-  - {fileID: 21300000, guid: 9441f74239315d54192a7a5eea74a437, type: 3}
-  - {fileID: 21300000, guid: 642d3b467a48411468b767cbdbe0c8a4, type: 3}
-  - {fileID: 21300000, guid: d5c4db037e59f79438082d7e5729db09, type: 3}
+  - {fileID: 21300000, guid: 32312fef820e67647aed104e60243c1d, type: 3}
+  - {fileID: 21300000, guid: 978ef89d30f0d0540a5d6f84b18a771c, type: 3}
+  - {fileID: 21300000, guid: 99fbcc277be036642bb120b5ba9db4ab, type: 3}
   - {fileID: 21300000, guid: e1f0c034ec61f164c9c175353a43d6ac, type: 3}
 --- !u!224 &334203340 stripped
 RectTransform:
@@ -717,6 +717,7 @@ GameObject:
   - component: {fileID: 371733286}
   - component: {fileID: 371733285}
   - component: {fileID: 371733284}
+  - component: {fileID: 371733287}
   m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
@@ -838,6 +839,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371733282}
   m_CullTransparentMesh: 1
+--- !u!114 &371733287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371733282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3a8ba130184eb4e8082df0160fe3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &371977197 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7268688931298840424, guid: fc65ee5a542c3d649bb729982c4a7244, type: 3}
@@ -2304,6 +2317,7 @@ GameObject:
   - component: {fileID: 1142715053}
   - component: {fileID: 1142715052}
   - component: {fileID: 1142715051}
+  - component: {fileID: 1142715054}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -2425,6 +2439,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142715049}
   m_CullTransparentMesh: 1
+--- !u!114 &1142715054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142715049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3a8ba130184eb4e8082df0160fe3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1155458671 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7268688931298840424, guid: fc65ee5a542c3d649bb729982c4a7244, type: 3}
@@ -3103,6 +3129,7 @@ GameObject:
   - component: {fileID: 1390138566}
   - component: {fileID: 1390138565}
   - component: {fileID: 1390138564}
+  - component: {fileID: 1390138567}
   m_Layer: 5
   m_Name: PauseButton
   m_TagString: Untagged
@@ -3224,6 +3251,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390138562}
   m_CullTransparentMesh: 1
+--- !u!114 &1390138567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390138562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3a8ba130184eb4e8082df0160fe3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1396898199
 GameObject:
   m_ObjectHideFlags: 0
@@ -4018,7 +4057,10 @@ MonoBehaviour:
   gameGrid: {fileID: 1285435785}
   timer: {fileID: 1475053484}
   gameOverPopup: {fileID: 1730308818}
-  isTest: 1
+  isTest: 0
+  easyLevelData: {fileID: 11400000, guid: c0aeb9c6d770f474591966e99150e53d, type: 2}
+  mediumLevelData: {fileID: 11400000, guid: 5d86f34ad388d9642941670ec01946ea, type: 2}
+  hardLevelData: {fileID: 11400000, guid: 7ff84febcbb04a4478c5ecf6287f11b6, type: 2}
 --- !u!4 &1601228463
 Transform:
   m_ObjectHideFlags: 0
@@ -4779,8 +4821,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294901242
+  m_fontColor: {r: 0.9803922, g: 0.9921569, b: 0.9960785, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5011,8 +5053,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288522240
-  m_fontColor: {r: 0, g: 0.65882355, b: 0.6156863, a: 1}
+    rgba: 4285714890
+  m_fontColor: {r: 0.79215693, g: 0.8196079, b: 0.44705886, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
