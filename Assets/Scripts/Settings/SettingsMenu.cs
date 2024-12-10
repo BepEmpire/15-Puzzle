@@ -27,8 +27,8 @@ public class SettingsMenu : MonoBehaviour
 
     private void LoadSettings()
     {
-        isSoundOn = PlayerPrefs.GetInt("SoundOn", 1) == 1;
-        isMusicOn = PlayerPrefs.GetInt("MusicOn", 1) == 1;
+        isSoundOn = PlayerPrefs.GetInt(Keys.SOUND, 1) == 1;
+        isMusicOn = PlayerPrefs.GetInt(Keys.MUSIC, 1) == 1;
         
         AudioController.Instance.SetSound(isSoundOn);
         AudioController.Instance.SetMusic(isMusicOn);
@@ -38,6 +38,7 @@ public class SettingsMenu : MonoBehaviour
     {
         isSoundOn = !isSoundOn;
         AudioController.Instance.SetSound(isSoundOn);
+        AudioController.Instance.PlaySound(AudioClips.Click.ToString());
         UpdateButtonVisuals();
     }
     
@@ -45,6 +46,7 @@ public class SettingsMenu : MonoBehaviour
     {
         isMusicOn = !isMusicOn;
         AudioController.Instance.SetMusic(isMusicOn);
+        AudioController.Instance.PlaySound(AudioClips.Click.ToString());
         UpdateButtonVisuals();
     }
 

@@ -34,6 +34,7 @@ public class ShopController : MonoBehaviour
         
         if (!isPurchased && WalletManager.Instance.SpendCoins(backgroundPrices[backgroundId]))
         {
+            isPurchased = true;
             PlayerPrefs.SetInt(PURCHASED_BACKGROUND + backgroundId, 1);
             AudioController.Instance.PlaySound(BUY);
         }
@@ -50,7 +51,7 @@ public class ShopController : MonoBehaviour
     {
         _currentBackgroundId = backgroundId;
         PlayerPrefs.SetInt(Keys.SELECTED_BACKGROUND, backgroundId);
-        AudioController.Instance.PlaySound(Keys.CLICK);
+        AudioController.Instance.PlaySound(AudioClips.Click.ToString());
         
         PlayerPrefs.Save();
     }

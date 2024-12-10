@@ -28,13 +28,13 @@ public class AudioController : MonoBehaviour
     public void SetSound(bool isOn)
     {
         soundEffectsSource.mute = !isOn;
-        PlayerPrefs.SetInt("SoundOn", isOn ? 1 : 0);
+        PlayerPrefs.SetInt(Keys.SOUND, isOn ? 1 : 0);
     }
 
     public void SetMusic(bool isOn)
     {
         musicSource.mute = !isOn;
-        PlayerPrefs.SetInt("MusicOn", isOn ? 1 : 0);
+        PlayerPrefs.SetInt(Keys.MUSIC, isOn ? 1 : 0);
     }
 
     public void PlaySound(string soundName)
@@ -66,8 +66,8 @@ public class AudioController : MonoBehaviour
 
     private void LoadAudioSettings()
     {
-        bool soundOn = PlayerPrefs.GetInt("SoundOn", 1) == 1;
-        bool musicOn = PlayerPrefs.GetInt("MusicOn", 1) == 1;
+        bool soundOn = PlayerPrefs.GetInt(Keys.SOUND, 1) == 1;
+        bool musicOn = PlayerPrefs.GetInt(Keys.MUSIC, 1) == 1;
         
         SetSound(soundOn);
         SetMusic(musicOn);

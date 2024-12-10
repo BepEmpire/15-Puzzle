@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8f5edc864166c42ae64305ac176169, type: 3}
   m_Name: Medium
   m_EditorClassIdentifier: 
-  levelName: 1
+  difficulty: 1
   timeLimit: 120
   reward: 200

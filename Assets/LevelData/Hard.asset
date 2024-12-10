@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8f5edc864166c42ae64305ac176169, type: 3}
   m_Name: Hard
   m_EditorClassIdentifier: 
-  levelName: 2
+  difficulty: 2
   timeLimit: 90
   reward: 500

@@ -13,6 +13,6 @@ public class PlayClickSound : MonoBehaviour
 
     private void PlayClick()
     {
-        AudioController.Instance.PlaySound(Keys.CLICK);
+        AudioController.Instance.PlaySound(AudioClips.Click.ToString());
     }
 }
